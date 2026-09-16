@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🌱 PestiSafe | Proper Use of Pesticides</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#060d09;color:#efffea;font-family:Segoe UI,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 15% 15%,#173c20,transparent 28%),radial-gradient(circle at 85% 70%,#1b2d12,transparent 26%)}
+body:after{content:"";position:fixed;inset:0;z-index:-2;opacity:.1;pointer-events:none;background-image:radial-gradient(#9cff57 1px,transparent 1px);background-size:45px 45px}
+.cursor{position:fixed;z-index:9999;pointer-events:none;font-size:25px;opacity:1;transition:opacity .12s;transform:translate(-50%,-50%);filter:drop-shadow(0 0 9px #9cff57)}
+.ring{position:fixed;z-index:9998;pointer-events:none;width:44px;height:44px;border:1px solid #9cff57;border-radius:50%;transform:translate(-50%,-50%);opacity:.5}
+body.interacting .cursor,body.interacting .ring{opacity:0}
+body.interacting{cursor:auto}
+body:not(.interacting){cursor:none}
+
+.trail{position:fixed;z-index:9997;pointer-events:none;font-size:14px;animation:trail .8s forwards}
+@keyframes trail{to{transform:translateY(-45px) rotate(35deg) scale(.2);opacity:0}}
+nav{position:fixed;z-index:100;top:0;left:0;right:0;padding:18px 7%;display:flex;justify-content:space-between;align-items:center;background:#060d09dd;backdrop-filter:blur(13px);border-bottom:1px solid #1d3925}
+.logo{font-weight:950;letter-spacing:2px}.logo span{color:#9cff57}
+nav a{color:#9cad9e;text-decoration:none;margin-left:24px;font-size:13px;font-weight:700}
+nav a:hover{color:#9cff57}
+.hero{min-height:790px;padding:175px 7% 100px;position:relative;display:flex;align-items:center}
+.hero-text{max-width:760px;position:relative;z-index:2}
+.tag{color:#9cff57;letter-spacing:3px;font-size:12px;font-weight:900}
+h1{font-size:clamp(62px,10vw,130px);line-height:.84;letter-spacing:-7px;margin:18px 0 30px}
+.green{color:#9cff57}
+.hero p{max-width:660px;color:#a2b1a5;font-size:18px;line-height:1.7}
+.buttons{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;border-radius:30px;border:1px solid #35523a;background:#101e15;color:#fff;text-decoration:none;font-weight:850;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px #0008}
+.primary{background:#9cff57;color:#071007;border-color:#9cff57}
+.orb{position:absolute;right:8%;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,#e0ff8a 0 4%,#86bd4c 7%,#1a3419 34%,transparent 67%);animation:pulse 3s infinite}
+@keyframes pulse{50%{transform:scale(1.08);filter:brightness(1.2)}}
+.float{position:absolute;font-size:42px;animation:bob 3s infinite ease-in-out}.f1{right:28%;top:23%}.f2{right:10%;top:57%;animation-delay:1s}.f3{right:31%;bottom:18%;animation-delay:2s}
+@keyframes bob{50%{transform:translateY(-14px) rotate(7deg)}}
+main{max-width:1280px;margin:auto}
+section{padding:95px 7%}
+.heading{margin-bottom:42px}.heading small{color:#9cff57;letter-spacing:3px;font-weight:900}.heading h2{font-size:clamp(40px,6vw,72px);line-height:.98;letter-spacing:-3px;margin:12px 0}.heading p{color:#9cab9f;max-width:760px}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.info-box{padding:30px;border:1px solid #27452e;border-radius:20px;background:#0b1810}.info-box h3{font-size:25px;margin-top:0}.info-box p{color:#a3b1a5}.fact{display:flex;gap:15px;padding:15px 0;border-bottom:1px solid #21372a}.fact:last-child{border:0}.fact b{color:#9cff57}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.card{min-height:250px;padding:24px;border-radius:18px;border:1px solid #25432d;background:linear-gradient(145deg,#0d1e14,#09120d);position:relative;overflow:hidden;transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-8px) rotate(.4deg);border-color:#9cff57}
+.card:after{content:"";position:absolute;width:110px;height:110px;right:-50px;bottom:-50px;border-radius:50%;background:#9cff5710}
+.num{position:absolute;right:17px;top:15px;color:#4a634f;font-size:12px;font-weight:bold}.emoji{font-size:39px;margin-bottom:18px}.card h3{margin:0 0 8px}.card p{margin:0;color:#a5b4a8;font-size:14px}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.step{padding:27px;border:1px solid #27452e;border-radius:18px;background:#0b1810}.step .big{font-size:45px}.step h3{font-size:23px;margin:10px 0}.step p{color:#a5b4a8}
+.warning{margin:10px 7% 80px;padding:32px;border:1px solid #856b36;border-radius:22px;background:linear-gradient(100deg,#ffb45413,#9cff5708);display:flex;align-items:center;gap:20px}.warning .big{font-size:45px}.warning h3{margin:0;font-size:28px}.warning p{margin:5px 0;color:#aeb7aa}
+.storage{display:grid;grid-template-columns:.8fr 1.2fr;gap:45px}
+.store-visual{min-height:520px;border:1px solid #294632;border-radius:25px;background:linear-gradient(#122319,#07100b);position:sticky;top:90px;padding:30px;overflow:hidden}
+.shelf{height:105px;border-bottom:8px solid #3d5242;display:flex;align-items:end;justify-content:space-around;margin-top:78px}.shelf span{font-size:38px;filter:drop-shadow(0 8px 5px #000)}.lock{position:absolute;right:28px;bottom:25px;font-size:40px}
+.store-list{display:flex;flex-direction:column}.store-item{display:grid;grid-template-columns:45px 1fr;gap:15px;padding:20px 5px;border-bottom:1px solid #213829}.store-item b{color:#9cff57}.store-item h3{margin:0 0 4px}.store-item p{margin:0;color:#a5b4a7;font-size:14px}
+.caution-zone{margin-top:40px;border:1px solid #694f2b;border-radius:27px;padding:40px 7%;background:radial-gradient(circle at 50% 0,#ffb45412,transparent 42%),#0b1710;text-align:center;position:relative;overflow:hidden}
+.caution-zone h2{font-size:clamp(38px,5vw,60px);margin:7px 0}.caution-zone>p{color:#aab5aa;max-width:700px;margin:0 auto 25px}
+.caution-button{width:150px;height:150px;border-radius:50%;border:3px solid #ffb454;background:radial-gradient(circle,#ffc46b,#8e5620);font-size:65px;cursor:pointer;box-shadow:0 0 0 0 #ffb45455;animation:warningPulse 2s infinite;transition:.25s}
+.caution-button:hover{transform:scale(1.08) rotate(4deg)}
+@keyframes warningPulse{70%{box-shadow:0 0 0 28px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.meter{height:12px;background:#1b2c20;border-radius:20px;max-width:550px;margin:28px auto 10px;overflow:hidden}.meter div{height:100%;width:15%;background:#9cff57;border-radius:20px;transition:.5s}
+.meter-label{font-size:13px;color:#9aa99d}
+.caution-options{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}.caution-options button{padding:13px 18px;border-radius:12px;border:1px solid #334c38;background:#101f16;color:#fff;cursor:pointer}.caution-options button:hover{border-color:#9cff57}
+.scenario{margin-top:25px;padding:20px;border-radius:16px;border:1px dashed #50624e;display:none;color:#dce8d8}
+.quiz{max-width:860px;margin:auto;padding:42px;border:1px solid #294632;border-radius:25px;background:#0b1910}.quiz h2{font-size:45px;margin:8px 0}.progress{height:5px;background:#1d3023;border-radius:5px;margin:22px 0 30px}.progress div{height:100%;width:20%;background:#9cff57;transition:.3s}
+.answer{display:block;width:100%;padding:15px;margin:9px 0;text-align:left;background:#101f16;border:1px solid #294632;border-radius:12px;color:#fff;cursor:pointer}.answer:hover,.answer.selected{border-color:#9cff57;background:#9cff570e}
+#next{float:right}#score{display:none;text-align:center;padding:20px}.scoreEmoji{font-size:65px}
+.takeaway{text-align:center}.takeaway h2{font-size:clamp(42px,7vw,82px);line-height:.95;letter-spacing:-4px}.takeaway p{color:#9dac9f}
+footer{border-top:1px solid #203d29;padding:35px 7%;color:#829186;text-align:center}
+.popup{position:fixed;right:22px;bottom:22px;z-index:500;max-width:350px;padding:18px 20px;border:1px solid #486d4d;border-radius:16px;background:#0c1b12ee;backdrop-filter:blur(12px);box-shadow:0 15px 50px #0009;transform:translateY(150px);transition:.45s}.popup.show{transform:translateY(0)}.popup b{color:#9cff57}.popup button{float:right;background:none;border:0;color:#aaa;font-size:18px;cursor:pointer}
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:#000b;padding:25px}.modal.show{display:flex}.modal-box{max-width:580px;width:100%;padding:35px;border:1px solid #6c5a32;border-radius:24px;background:#0b1810;box-shadow:0 25px 100px #000}.modal-box .warning-icon{font-size:65px;text-align:center}.modal-box h2{text-align:center;font-size:38px}.modal-box p{color:#aab5aa;line-height:1.7}.close{float:right;background:none;border:0;color:#aaa;font-size:25px;cursor:pointer}
+.reveal{opacity:0;transform:translateY(25px);transition:.7s}.reveal.show{opacity:1;transform:none}
+@media(max-width:900px){.orb,.float{opacity:.25}.cards{grid-template-columns:repeat(2,1fr)}.intro-grid,.storage{grid-template-columns:1fr}.store-visual{position:relative;top:0}.timeline{grid-template-columns:1fr}}
+@media(max-width:600px){nav a{display:none}.hero{min-height:720px}.cards{grid-template-columns:1fr}h1{font-size:60px}.caution-button{width:125px;height:125px;font-size:52px}.warning{margin-left:6%;margin-right:6%}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor">🌱</div>
+<div class="ring" id="ring"></div>
+
+<nav>
+  <div class="logo">🌱 <span>PESTI</span>SAFE</div>
+  <div>
+    <a href="#basics">BASICS</a>
+    <a href="#use">USE</a>
+    <a href="#storage">STORAGE</a>
+    <a href="#quiz">QUIZ</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-text">
+    <div class="tag">🔬 SCIENCE PROJECT • RESPONSIBLE AGRICULTURE</div>
+    <h1>SMART USE.<br><span class="green">SAFE FUTURE.</span></h1>
+    <p>Pesticides can help control pests and protect crops. The important part is using responsible safety practices so people, animals and the environment are protected.</p>
+    <div class="buttons">
+      <a class="btn primary" href="#basics">🌱 Start Exploring ↓</a>
+      <a class="btn" href="#caution">⚠️ Enter Caution Zone</a>
+    </div>
+  </div>
+  <div class="orb"></div><div class="float f1">🥽</div><div class="float f2">🧴</div><div class="float f3">⚠️</div>
+</header>
+
+<main>
+
+<section id="basics" class="reveal">
+  <div class="heading">
+    <small>01 / THE BASICS</small>
+    <h2>🧪 What are pesticides?</h2>
+    <p>Pesticides are substances used to control organisms that can damage crops or cause other problems. They need careful handling because some can be harmful if people or the environment are exposed unnecessarily.</p>
+  </div>
+  <div class="intro-grid">
+    <div class="info-box">
+      <h3>🌾 Why are they used?</h3>
+      <div class="fact"><b>01</b><span>To help protect crops from harmful pests.</span></div>
+      <div class="fact"><b>02</b><span>To reduce damage caused by insects, weeds and other pests.</span></div>
+      <div class="fact"><b>03</b><span>To support crop production when used responsibly.</span></div>
+    </div>
+    <div class="info-box">
+      <h3>⚠️ Why does safety matter?</h3>
+      <div class="fact"><b>01</b><span>People should avoid unnecessary contact with pesticide products.</span></div>
+      <div class="fact"><b>02</b><span>Animals and water sources should be protected from contamination.</span></div>
+      <div class="fact"><b>03</b><span>Labels, protective equipment and secure storage are important safety barriers.</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="warning reveal">
+  <div class="big">⚠️</div>
+  <div><h3>THE GOLDEN RULE</h3><p>Always read and follow the product label and applicable safety instructions. Never assume that every pesticide has the same hazards or precautions.</p></div>
+</div>
+
+<section id="use" class="reveal">
+  <div class="heading">
+    <small>02 / PROPER USE</small>
+    <h2>🧤 Safety starts <span class="green">before</span> the work.</h2>
+    <p>These precautions are based on your project notes. Click the cards for mini safety messages.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card popup-card" data-pop="🥽 Protect your eyes and face. A face shield or goggles can help reduce accidental exposure.">
+      <span class="num">01</span><div class="emoji">🥽</div><h3>Protect Your Face</h3><p>Wear a protective hat, face shield or goggles.</p>
+    </article>
+    <article class="card popup-card" data-pop="🚫 Keep food, drinks and smoking away from pesticide work.">
+      <span class="num">02</span><div class="emoji">🚫🍔</div><h3>No Eating or Drinking</h3><p>Do not eat, drink or smoke while working.</p>
+    </article>
+    <article class="card popup-card" data-pop="🧼 Soap + water are part of the cleanup routine after spraying.">
+      <span class="num">03</span><div class="emoji">🧼</div><h3>Wash Up</h3><p>Wash hands and face with soap and water after spraying.</p>
+    </article>
+    <article class="card popup-card" data-pop="🚿 After work, shower or bathe and put on clean clothes.">
+      <span class="num">04</span><div class="emoji">🚿</div><h3>Clean Yourself</h3><p>Shower or bathe after work and wear clean clothes.</p>
+    </article>
+    <article class="card popup-card" data-pop="👕 Protective clothes should be washed separately from family clothes.">
+      <span class="num">05</span><div class="emoji">👕</div><h3>Separate Clothes</h3><p>Wash protective clothes separately from family clothes.</p>
+    </article>
+    <article class="card popup-card" data-pop="💧 If pesticide touches skin, wash the area immediately with soap and water.">
+      <span class="num">06</span><div class="emoji">💧</div><h3>Skin Contact?</h3><p>Wash immediately with soap and water.</p>
+    </article>
+    <article class="card popup-card" data-pop="🔄 If clothing becomes contaminated, change it rather than continuing to wear it.">
+      <span class="num">07</span><div class="emoji">🔄</div><h3>Change Clothes</h3><p>Change clothes if contaminated with pesticides.</p>
+    </article>
+    <article class="card popup-card" data-pop="📢 Feeling unwell? Tell the responsible supervisor instead of ignoring the problem.">
+      <span class="num">08</span><div class="emoji">📢</div><h3>Feel Unwell?</h3><p>Inform your supervisor if you feel unwell.</p>
+    </article>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="heading">
+    <small>03 / THE SAFETY CYCLE</small>
+    <h2>🔁 Think <span class="green">before → during → after</span>.</h2>
+  </div>
+  <div class="timeline">
+    <div class="step"><div class="big">🧠</div><h3>BEFORE</h3><p>Read the label, understand the safety requirements and make sure the appropriate protective equipment is available.</p></div>
+    <div class="step"><div class="big">🧤</div><h3>DURING</h3><p>Follow the product instructions and safety precautions. Avoid eating, drinking or smoking while working.</p></div>
+    <div class="step"><div class="big">🧼</div><h3>AFTER</h3><p>Wash exposed skin, shower or bathe, change contaminated clothing and keep protective clothing separate.</p></div>
+  </div>
+</section>
+
+<section id="storage" class="reveal">
+  <div class="heading">
+    <small>04 / SAFE STORAGE</small>
+    <h2>🔒 Lock it.<br><span class="green">Store it smart.</span></h2>
+    <p>Good storage is about preventing accidental access, leaks, damage and contamination.</p>
+  </div>
+  <div class="storage">
+    <div class="store-visual">
+      <div style="text-align:center;font-size:22px;font-weight:900">☠️ CAUTION • AUTHORIZED ACCESS</div>
+      <div class="shelf"><span>🧴</span><span>📦</span><span>🧴</span><span>📦</span></div>
+      <div class="shelf"><span>📦</span><span>🧴</span><span>📦</span><span>🧴</span></div>
+      <div class="lock">🔒</div>
+    </div>
+    <div class="store-list">
+      <article class="store-item"><b>01</b><div><h3>🚫 Keep Away</h3><p>Store pesticides away from people, animals and water sources.</p></div></article>
+      <article class="store-item"><b>02</b><div><h3>🔐 Authorized Access</h3><p>Keep them in a high, secure or fenced area accessible only to authorized persons.</p></div></article>
+      <article class="store-item"><b>03</b><div><h3>☀️💧 Protect From Weather</h3><p>Protect pesticides from sunlight, water and moisture.</p></div></article>
+      <article class="store-item"><b>04</b><div><h3>🌬️ Ventilation</h3><p>The storage room should be secure and well ventilated.</p></div></article>
+      <article class="store-item"><b>05</b><div><h3>📦 Stack Safely</h3><p>Stack containers, bags and boxes safely. Follow “first expiry, first out”.</p></div></article>
+      <article class="store-item"><b>06</b><div><h3>📋 Keep Records</h3><p>Keep stock and issue registers updated and allow access only to authorized personnel.</p></div></article>
+      <article class="store-item"><b>07</b><div><h3>☠️ Warning Sign</h3><p>Display a caution or poison sign and keep the store locked.</p></div></article>
+      <article class="store-item"><b>08</b><div><h3>🧱 Prevent Damage</h3><p>Arrange containers to prevent damage, leakage and falling. Stack safely at a proper height.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="caution" class="caution-zone reveal">
+  <div class="tag">⚠️ INTERACTIVE CAUTION SYSTEM</div>
+  <h2>How careful are you?</h2>
+  <p>Tap the warning sign. Then choose what kind of safety situation you're looking at. This is a learning simulation — it does not replace the product label or professional guidance.</p>
+  <button class="caution-button" id="cautionButton">⚠️</button>
+  <div class="meter"><div id="meterBar"></div></div>
+  <div class="meter-label" id="meterLabel">Safety awareness: READY</div>
+
+  <div class="caution-options">
+    <button data-level="safe">🟢 Safe Practice</button>
+    <button data-level="warning">🟡 Warning Sign</button>
+    <button data-level="danger">🔴 Serious Risk</button>
+  </div>
+  <div class="scenario" id="scenario"></div>
+</section>
+
+<section class="interactive reveal" style="text-align:center">
+  <div class="tag">⚡ QUICK DECISION</div>
+  <h2 style="font-size:48px">What would YOU do?</h2>
+  <p style="color:#a5b4a8">You finish working with pesticides. What is the safest next step?</p>
+  <button class="btn choice" data-correct="false">🍕 Grab a snack</button>
+  <button class="btn choice" data-correct="true">🧼 Wash hands and face</button>
+  <button class="btn choice" data-correct="false">👕 Mix protective clothes with family laundry</button>
+  <div id="result" style="min-height:30px;margin-top:18px;font-weight:800"></div>
+</section>
+
+<section id="quiz" class="reveal">
+  <div class="quiz">
+    <div class="tag">🧠 FINAL BOSS: SAFETY QUIZ</div>
+    <h2>Can you get 5/5?</h2>
+    <div class="progress"><div id="bar"></div></div>
+    <h3 id="question"></h3>
+    <div id="answers"></div>
+    <p id="counter" style="color:#8fa091">Question 1 / 5</p>
+    <button id="next" class="btn primary" disabled>Next →</button>
+    <div id="score"><div class="scoreEmoji">🏆</div><h2 id="scoreTitle"></h2><p id="scoreText"></p><button class="btn primary" onclick="restart()">↻ Try Again</button></div>
+    <div style="clear:both"></div>
+  </div>
+</section>
+
+<section class="takeaway reveal">
+  <div style="font-size:65px">🌱</div>
+  <h2>Protect the crop.<br>Protect the people.<br><span class="green">Protect the planet.</span></h2>
+  <p>Responsible pesticide use starts with simple precautions, good hygiene and secure storage.</p>
+</section>
+
+</main>
+
+<footer>🌱 <b>PESTISAFE</b> — Science Project • Proper Use & Storage of Pesticides</footer>
+
+<div class="popup" id="popup"><button onclick="hidePopup()">×</button><b>🌱 SAFETY NOTE</b><div id="popupText" style="margin-top:6px"></div></div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div class="warning-icon">⚠️</div>
+    <h2 id="modalTitle">CAUTION!</h2>
+    <p id="modalText"></p>
+    <div style="text-align:center;margin-top:20px"><button class="btn primary" onclick="closeModal()">Got it 👍</button></div>
+  </div>
+</div>
+
+<script>
+/* 🌱 EMOJI POINTER */
+const cursor=document.getElementById("cursor"),ring=document.getElementById("ring");
+
+const interactiveSelectors = "a,button,.card,.caution-button,.answer,.choice";
+document.querySelectorAll(interactiveSelectors).forEach(el=>{
+  el.addEventListener("mouseenter",()=>document.body.classList.add("interacting"));
+  el.addEventListener("mouseleave",()=>document.body.classList.remove("interacting"));
+  el.addEventListener("focus",()=>document.body.classList.add("interacting"));
+  el.addEventListener("blur",()=>document.body.classList.remove("interacting"));
+});
+
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener("mousemove",e=>{
+  mx=e.clientX;my=e.clientY;cursor.style.left=mx+"px";cursor.style.top=my+"px";
+  if(Math.random()<.12){
+    const p=document.createElement("div");p.className="trail";
+    p.textContent=["🌱","✨","💚","🍃","🧪","⚠️"][Math.floor(Math.random()*6)];
+    p.style.left=mx+"px";p.style.top=my+"px";document.body.appendChild(p);
+    setTimeout(()=>p.remove(),800);
+  }
+});
+function ringMove(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+"px";ring.style.top=ry+"px";requestAnimationFrame(ringMove)}ringMove();
+
+/* CARD POPUPS */
+const popup=document.getElementById("popup"),popupText=document.getElementById("popupText");
+function showPopup(t){popupText.textContent=t;popup.classList.add("show")}
+function hidePopup(){popup.classList.remove("show")}
+document.querySelectorAll(".popup-card").forEach(c=>c.onclick=()=>showPopup(c.dataset.pop));
+
+/* INTERACTIVE CAUTION SYSTEM */
+const modal=document.getElementById("modal"),modalTitle=document.getElementById("modalTitle"),modalText=document.getElementById("modalText");
+const bar=document.getElementById("meterBar"),label=document.getElementById("meterLabel"),scenario=document.getElementById("scenario");
+const cautionMessages={
+ safe:{
+  title:"🟢 SAFE PRACTICE",
+  text:"Examples of good safety habits include using appropriate protective equipment, washing hands and face after work, changing contaminated clothing, and keeping pesticides securely stored.",
+  width:"90%",label:"Safety awareness: EXCELLENT"
+ },
+ warning:{
+  title:"🟡 WARNING SIGN",
+  text:"A warning sign means a safety precaution may be missing or ignored. Pause and check the label, protective equipment, hygiene and storage requirements before continuing.",
+  width:"55%",label:"Safety awareness: PAY ATTENTION"
+ },
+ danger:{
+  title:"🔴 SERIOUS RISK",
+  text:"Unnecessary exposure, unsafe storage, contamination of water sources, or unauthorized access can create serious hazards. Stop and involve a responsible adult or supervisor and follow the product label/emergency guidance.",
+  width:"20%",label:"Safety awareness: HIGH ALERT"
+ }
+};
+document.getElementById("cautionButton").onclick=()=>{
+ modalTitle.textContent="⚠️ CAUTION MODE ACTIVATED";
+ modalText.textContent="Pesticides are chemicals that require responsible handling. The safest approach is to reduce unnecessary exposure, follow the product label, use the required protective equipment and keep products secured.";
+ modal.classList.add("show");
+};
+function closeModal(){modal.classList.remove("show")}
+document.querySelectorAll(".caution-options button").forEach(btn=>{
+ btn.onclick=()=>{
+   const x=cautionMessages[btn.dataset.level];
+   bar.style.width=x.width;label.textContent=x.label;
+   scenario.style.display="block";scenario.innerHTML="<b>"+x.title+"</b><br>"+x.text;
+ }
+});
+
+/* QUICK DECISION */
+document.querySelectorAll(".choice").forEach(btn=>btn.onclick=()=>{
+ const r=document.getElementById("result");
+ if(btn.dataset.correct==="true"){r.textContent="✅ Correct! Clean up safely and reduce unnecessary exposure.";r.style.color="#9cff57";showPopup("🎉 Nice choice. Hygiene is an important part of pesticide safety.")}
+ else{r.textContent="⚠️ Not quite. Think about reducing exposure first.";r.style.color="#ffb454"}
+});
+
+/* REVEAL ANIMATIONS */
+const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show")}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(x=>observer.observe(x));
+
+/* QUIZ */
+const questions=[
+ ["What should you wear to protect your face?","🥽 Protective goggles or a face shield","😎 Sunglasses only","🧢 A cap only",0],
+ ["What should you avoid while working?","💧 Washing your hands","🚫 Eating, drinking or smoking","🧤 Wearing protective equipment",1],
+ ["Where should pesticides be stored?","🍞 Beside food","🌊 Beside water","🔒 In a secure area away from people, animals and water",2],
+ ["How should contaminated protective clothes be washed?","👕 Separately from family clothes","🧺 Mixed with all family laundry","🛏️ On the bed",0],
+ ["Why should containers be stacked safely?","🎨 To look organized","🛡️ To prevent damage, leakage and falling","🙈 To hide them",1]
+];
+let qi=0,score=0,chosen=-1;
+const q=document.getElementById("question"),answers=document.getElementById("answers"),next=document.getElementById("next"),counter=document.getElementById("counter"),progress=document.getElementById("bar");
+function load(){
+ chosen=-1;next.disabled=true;const x=questions[qi];q.textContent=x[0];counter.textContent=`Question ${qi+1} / 5`;progress.style.width=((qi+1)/5*100)+"%";answers.innerHTML="";
+ x.slice(1,4).forEach((txt,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=txt;b.onclick=()=>{document.querySelectorAll(".answer").forEach(z=>z.classList.remove("selected"));b.classList.add("selected");chosen=i;next.disabled=false};answers.appendChild(b)})
+}
+next.onclick=()=>{if(chosen===questions[qi][4])score++;qi++;if(qi<5)load();else finish()};
+function finish(){q.style.display="none";answers.style.display="none";next.style.display="none";counter.style.display="none";document.querySelector(".progress").style.display="none";document.getElementById("score").style.display="block";document.getElementById("scoreTitle").textContent=`You scored ${score}/5!`;document.getElementById("scoreText").textContent=score===5?"🌟 PERFECT. Pesticide-safety master!":score>=3?"👍 Good work! Review the checklist and try again.":"📚 Keep learning! The safety cards above have your clues."}
+function restart(){qi=0;score=0;q.style.display="block";answers.style.display="block";next.style.display="block";counter.style.display="block";document.querySelector(".progress").style.display="block";document.getElementById("score").style.display="none";load()}
+load();
+</script>
+</body>
+</html>
